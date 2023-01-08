@@ -7,3 +7,11 @@
 - StringBuilder 객체를 생성한 후, append() 메소드로 연결하고자 하는 문자열을 넣어준다.
 - 출력 시에는 toStirng()을 붙여야 하고, String 변수에 넣을 때도 마찬가지다.
 
+<br><br><br>
+
+23.01.08 프로그래머스 코딩테스트 입문 Day6 문제 풀이 중 repeat() 사용
+<br><br>
+- repeat()은 자바11부터 추가된 String 메서드
+- 주어진 파라미터 횟수만큼 문자열을 반복한다.
+- 파라미터를 0으로 지정하면 빈 문자열, 음수로 지정하면 IllegalArgumentExceptionthrow 에러를 반환한다.
+- repeat() 메서드를 사용하면 내부적으로 Arrays.fill() 및 System.arraycopy() 메서드를 호출하여 새 문자열을 만든다.
