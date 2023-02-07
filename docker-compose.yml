@@ -1,0 +1,47 @@
+# 도커 컴포즈 버전 작성
+# 도커 컴포즈 버전은 1, 2, 2.1, 3.0 등이 있으며
+# 1.8은 버전 2, 1.9는 2.1, 2.1, 1.10은 3.0을 사용한다.
+# 도커 컴포즈 버전은 도커 엔진 버전에 의존성이 있으므로 가능하다면 최신 버전 사용
+# 콜론 뒤는 꼭! "띄어쓰기 한 칸"
+version: "3"
+# services는 일종의 컨테이너 모음
+services:
+  # 들여쓰기는 띄어쓰기로 조절(탭키x)
+  # 띄어쓰기 개수 통일(현재 띄어쓰기 두 칸)
+  # 워드프레스는 mysql이 있어야만 작동하므로 mysql을 먼저 작성
+  # 워드프레스 컨테이너 작성 시 depends_on 추가
+  # mysql 컨테이너 작성
+  mysql000ex11:
+    image: mysql:5.7
+    networks:
+      - wordpress000net1
+    volumes:
+      - mysql000vol11:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: myrootpass
+      MYSQL_DATABASE: wordpress000db
+      MYSQL_USER: wordpress000kun
+      MYSQL_PASSWORD: wkunpass
+  # 워드프레스 컨테이너 작성
+  wordpress000ex12:
+    depends_on:
+      - mysql000ex11
+    image: wordpress
+    networks:
+      - wordpress000net1
+    volumes:
+      - wordpress000vol12:/var/www/html
+    ports:
+      - 8085:80
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: mysql000ex11
+      WORDPRESS_DB_NAME: wordpress000db
+      WORDPRESS_DB_USER: wordpress000kun
+      WORDPRESS_DB_PASSWORD: wkunpass
+networks:
+  wordpress000net1:
+volumes:
+  mysql000vol11:
+  wordpress000vol12:
